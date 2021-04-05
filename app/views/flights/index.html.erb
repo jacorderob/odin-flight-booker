@@ -1,0 +1,11 @@
+<%= form_with url: '/flight', method: :get do |f| %>
+  <%= f.label :from_airport_id, 'Select airport of origin' %>
+  <%= f.collection_select :from_airport_id, Airport.order(:code), :id, :code %>
+  <%= f.label :to_airport_id, 'Select airport of destination' %>
+  <%= f.collection_select :to_airport_id, Airport.order(:code), :id, :code %>
+  <%= f.label :passengers, 'Select airport of destination' %>
+  <%= f.select :passengers, [['1', 1], ['2', 2], ['3', 3], ['4', 4]] %>
+  <%= f.label :departure, 'Date' %>
+  <%= f.select :departure, @available_dates %>
+  <%= f.submit 'Search' %>
+<% end %>
