@@ -1,4 +1,5 @@
-<%= form_with url: '/flight', method: :get do |f| %>
+<%= form_with url: '/flights', method: :get do |f| %>
+  <%= f.hidden_field :flight, value: true %>
   <%= f.label :from_airport_id, 'Select airport of origin' %>
   <%= f.collection_select :from_airport_id, Airport.order(:code), :id, :code %>
   <%= f.label :to_airport_id, 'Select airport of destination' %>
@@ -8,4 +9,13 @@
   <%= f.label :departure, 'Date' %>
   <%= f.select :departure, @available_dates %>
   <%= f.submit 'Search' %>
+<% end %>
+
+<h1>Avaliable Flights</h1>
+<% if @flights %>
+  <%= form_with url: '/bookings/new', method: :get do |f| %>
+    <%=f.hidden_field :passengers, value: params[:passengers] %>
+    <%= f.collection_radio_buttons :flight_id, @flights, :id, :name %>
+    <%= f.submit 'Select flight' %>
+  <% end %>
 <% end %>

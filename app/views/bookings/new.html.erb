@@ -1,0 +1,16 @@
+<h1>Booking information</h1>
+<h2>Flight: <%= @flight.name %></h2>
+
+<%= form_with model: @booking do |f| %>
+  <%= f.hidden_field :flight_id, value: @flight.id %>
+  <h3>Complete the passengers information:</h3>
+  <% @booking.passengers.each_with_index do |passenger, index| %>
+    <h4>Passenger #<%= index + 1 %></h4>
+    <%= f.fields_for :passengers, passenger do |p_f| %>
+      <%= p_f.text_field :name %>
+      <%= p_f.text_field :email %>
+    <% end %>
+    <hr>
+  <% end %>
+  <%= f.submit 'Submit' %>
+<% end %>
